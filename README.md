@@ -1,5 +1,5 @@
 # smartdre-docker
 
-Buildinfo for create image docker aosucas499/guadalinex:edu
+Buildinfo for create image docker aosucas499/guadalinex:next
 
-Repositories from Guadalinex Edu 2013 (Ubuntu 12.04 Precise i386)
+Repositories from Guadalinex Next (Ubuntu 16.04 Xenial i386)
