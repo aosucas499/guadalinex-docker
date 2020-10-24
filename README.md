@@ -1,4 +1,4 @@
-# smartdre-docker
+# Guadalinex-docker
 
 Buildinfo for create image docker aosucas499/guadalinex:next
 
