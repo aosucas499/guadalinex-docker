@@ -1,10 +1,5 @@
 # guadalinex-docker
 
-Buildinfo for create image docker aosucas499/guadalinex
+Buildinfo for create image docker aosucas499/guadalinex:precise
 
-
-tag next: Guadalinex edu Next (Ubuntu 16 Xenial)
-
-tag edu: Guadalienx edu 2013 (Ubuntu 14 Trusty instead of Precise 12, because there aren't i386 docker images)
-
-tag precise: Guadalinex edu 2013 (Ubuntu 12 Precise 64bits)
+Repositories from Guadalinex Edu 2013 (Ubuntu 12 Precise)
