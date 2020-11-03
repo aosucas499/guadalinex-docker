@@ -1,5 +1,5 @@
-# Sigala-docker
+# HGR-docker
 
-Buildinfo for create image docker aosucas499/guadalinex:sigala
+Buildinfo for create image docker aosucas499/guadalinex:hgr
 
-Docker to run Sigala applications using Repositories from Guadalinex edu 2013 (Ubuntu 12 Precise 64bits)
+Docker to run HGR applications using Repositories from Guadalinex edu next (Ubuntu 16 Xenial 32bits)
