@@ -20,8 +20,8 @@ ENV QT_X11_NO_MITSHM=1
 
 # Instala repositorios guadalinex edu 2013
 ARG REPO1=http://centros.edu.guadalinex.org/Edu/catcorner
-ARG REPO2=http://centros.edu.guadalinex.org/Edu//catcornerdda
-ARG REPO3=http://centros.edu.guadalinex.org/Edu//catcornerdda2
+ARG REPO2=http://centros.edu.guadalinex.org/Edu/catcornerdda
+ARG REPO3=http://centros.edu.guadalinex.org/Edu/catcornerdda2
 ARG REPO4=http://centros.edu.guadalinex.org/Edu/catcornersc
 #ARG REPO5=http://centros.edu.guadalinex.org/Edu/precise
 #ARG REPO6=http://centros.edu.guadalinex.org/Edu/precisedda
