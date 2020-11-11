@@ -1,0 +1,81 @@
+#! /bin/sh
+
+### BEGIN INIT INFO
+# Provides:          ejabberd
+# Required-Start:    $remote_fs $network $named $time
+# Required-Stop:     $remote_fs $network $named $time
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Starts ejabberd jabber server
+# Description:       Starts ejabberd jabber server, an XMPP
+#                    compliant server written in Erlang.
+### END INIT INFO
+
+# chkconfig: 2345 90 10
+# description: ejabberd XMPP server
+
+set -o errexit
+
+. /lib/lsb/init-functions
+
+DIR=/usr/sbin
+CTL="$DIR"/ejabberdctl
+USER=$USER
+EJABBERDRUN=/run/ejabberd
+
+test -x "$CTL" || {
+	log_daemon_msg "ERROR: ejabberd not found: $DIR"
+	exit 1
+}
+
+mkrundir()
+{
+	if [ ! -d $EJABBERDRUN ]; then
+		mkdir -p $EJABBERDRUN
+		if [ $? -ne 0 ]; then
+			log_daemon_msg -n " failed"
+			return
+		fi
+		chmod 0755 $EJABBERDRUN
+		chown ejabberd:ejabberd $EJABBERDRUN
+	fi
+}
+
+export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
+
+case "$1" in
+  start)
+    test -x "$CTL" || exit 0
+    mkrundir
+    log_daemon_msg "Starting ejabberd..."
+    if ! /etc/init.d/ejabberd status > /dev/null; then
+	su - $USER -c "$CTL start"
+	su - $USER -c "$CTL started"
+    fi
+    log_daemon_msg "done."
+    ;;
+  stop)
+    test -x "$CTL" || exit 0
+    log_daemon_msg "Stopping ejabberd..."
+    if $CTL status >/dev/null || test $? = 1 ; then
+	su - $USER -c "$CTL stop"
+	su - $USER -c "$CTL stopped"
+    fi
+    log_daemon_msg "done."
+    ;;
+  status)
+    test -x "$CTL" || exit 0
+    log_daemon_msg "Getting ejabberd status..."
+    su - $USER -c "$CTL status"
+    ;;
+  force-reload|restart)
+    "$0" stop
+    "$0" start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|force-reload|status}"
+    exit 3
+    ;;
+esac
+
+exit 0
