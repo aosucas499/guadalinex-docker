@@ -1,28 +1,33 @@
-#aosucas499/guadalinex:hga
+#aosucas499/guadalinex:edu
+# basado en ubuntu 14 trusty
+# con repositorios de guadalinex edu 2013
+ 
 
 # Comando para crear imagen docker, usar comando en la misma carpeta de este archivo
-# sudo docker build -t aosucas499/guadalinex:hgr .
+# sudo docker build -t aosucas499/guadalinex:edu .
 
 # Uso de la imagen y variables
-FROM aosucas499/guadalinex:next
+#FROM i386/ubuntu:precise
+#FROM daald/ubuntu32:precise
+FROM i386/ubuntu:trusty
 MAINTAINER Andrés Osuna <aosucas499gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 ENV QT_X11_NO_MITSHM=1
 
-# Instala repositorios ubuntu
-#ARG REPO5=http://centros.edu.guadalinex.org/Edu/precise
-#RUN echo deb $REPO5 precise main >> /etc/apt/sources.list.d/guadalinex5.list && apt-get update
-#RUN apt-get install python-gobject cga-hga -y
+# Instala repositorios guadalinex edu 2013
+ARG REPO1=http://centros.edu.guadalinex.org/Edu/catcorner
+ARG REPO2=http://centros.edu.guadalinex.org/Edu/catcornerdda
+ARG REPO3=http://centros.edu.guadalinex.org/Edu/catcornerdda2
+ARG REPO4=http://centros.edu.guadalinex.org/Edu/catcornersc
+ARG REPO5=http://centros.edu.guadalinex.org/Edu/precise
+ARG REPO6=http://centros.edu.guadalinex.org/Edu/precisedda
+ARG REPO7=http://centros.edu.guadalinex.org/Edu/precisedda2
 
-RUN apt-get update && wget http://centros.edu.guadalinex.org/Edu/precise/pool/main/r/rlwrap/rlwrap_0.37-2_i386.deb && dpkg -i rlwrap_0.37-2_i386.deb && wget http://centros.edu.guadalinex.org/Edu/precise/pool/main/n/nodejs/nodejs_0.10.37-1_i386.deb && dpkg -i nodejs_0.10.37-1_i386.deb && apt-get install curl -y && wget http://centros.edu.guadalinex.org/Edu/precise/pool/main/e/etherpad-lite/etherpad-lite_1.5.7-3_all.deb && dpkg -i etherpad-lite_1.5.7-3_all.deb && apt-get install libgdbm3 -y && wget http://security.ubuntu.com/ubuntu/pool/main/p/perl/perl-modules-5.22_5.22.1-9ubuntu0.9_all.deb && wget http://security.ubuntu.com/ubuntu/pool/main/p/perl/libperl5.22_5.22.1-9ubuntu0.9_i386.deb && wget http://security.ubuntu.com/ubuntu/pool/main/p/perl/perl_5.22.1-9ubuntu0.9_i386.deb && wget http://security.ubuntu.com/ubuntu/pool/main/p/perl/perl-base_5.22.1-9ubuntu0.9_i386.deb && wget http://security.ubuntu.com/ubuntu/pool/main/t/tzdata/tzdata_2020a-0ubuntu0.19.10_all.deb && wget http://security.ubuntu.com/ubuntu/pool/main/m/mysql-5.7/mysql-common_5.7.32-0ubuntu0.16.04.1_all.deb && wget http://security.ubuntu.com/ubuntu/pool/main/m/mysql-5.7/libmysqlclient20_5.7.32-0ubuntu0.16.04.1_i386.deb && dpkg -i *.deb && apt-get install python-gobject cga-hga sudo -y && rm *.deb -f && apt-get clean -y
+#RUN dpkg --add-architecture i386 && apt-get update
+RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p && echo "APT { Get { AllowUnauthenticated "1"; }; };" > /etc/apt/apt.conf.d/99allow_unauth && apt-get update && apt-get install nano wget grep screen psmisc add-apt-key ca-certificates -y && echo deb $REPO1 guadalinexedu main > /etc/apt/sources.list && echo deb $REPO2 guadalinexedu main > /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO3 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO4 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO5 precise main >> /etc/apt/sources.list && echo deb $REPO6 precise main >> /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO7 precise main >> /etc/apt/sources.list.d/guadalinex.list && apt-get update && apt-get clean 
 
-#COPY ejabberdctl /usr/sbin/
-#RUN chmod +x /usr/sbin/ejabberdctl
-#COPY ejabberd /etc/init.d/
-#RUN chmod +x /etc/init.d/ejabberd
-#COPY init.sh /
-#RUN chmod +x /init.sh
-#ENTRYPOINT /init.sh
+
+
 
 
 
