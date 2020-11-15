@@ -19,7 +19,7 @@ ARG REPO2=http://centros.edu.guadalinex.org/Edu/fenixsc/
 ARG REPO3=http://centros.edu.guadalinex.org/Edu/fenixscmd/
 ARG REPO4=http://centros.edu.guadalinex.org/Edu/fenixscpdi/
 
-RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p && echo "APT { Get { AllowUnauthenticated "1"; }; };" > /etc/apt/apt.conf.d/99allow_unauth && apt-get update && apt-get install nano wget grep screen psmisc add-apt-key ca-certificates -y && echo deb $REPO1 guadalinexedu main > /etc/apt/sources.list && echo deb $REPO2 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex2.list && echo deb $REPO3 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex3.list && echo deb $REPO4 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex4.list && apt-get update && apt-get clean
+RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p && mkdir /var/run/dbus && echo "APT { Get { AllowUnauthenticated "1"; }; };" > /etc/apt/apt.conf.d/99allow_unauth && apt-get update && apt-get install nano wget grep screen vlc psmisc dbus-x11 add-apt-key ca-certificates -y && echo deb $REPO1 guadalinexedu main > /etc/apt/sources.list && echo deb $REPO2 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex2.list && echo deb $REPO3 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex3.list && echo deb $REPO4 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex4.list && apt-get clean && rm -rf /var/lib/apt/lists/* && apt-get clean && apt-get update 
 
 
 
