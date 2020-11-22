@@ -31,5 +31,5 @@ RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && m
 && echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections \
 && apt-get -o Acquire::AllowInsecureRepositories=yes install apt-utils -y --allow-unauthenticated
 RUN apt-get -o Acquire::AllowInsecureRepositories=yes install -y --allow-unauthenticated nano wget grep dbus dbus-x11 screen psmisc python flashplugin-installer flashplugin-nonfree -y && apt-get clean 
-RUN install -d -m755 -o pulse -g pulse /run/pulse
+#RUN install -d -m755 -o pulse -g pulse /run/pulse
 RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/
