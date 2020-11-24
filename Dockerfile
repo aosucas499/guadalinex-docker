@@ -4,7 +4,7 @@
  
 
 # Comando para crear imagen docker, usar comando en la misma carpeta de este archivo
-# sudo docker build -t aosucas499/guadalinex:hga .
+# sudo docker build -t aosucas499/guadalinex:hgr .
 
 # Uso de la imagen y variables
 
@@ -30,8 +30,8 @@ RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && m
 RUN apt-get -o Acquire::AllowInsecureRepositories=yes install -y --allow-unauthenticated nano wget grep dbus dbus-x11 libnotify-bin screen psmisc python -y && apt-get clean 
 #RUN apt-get -o Acquire::AllowInsecureRepositories=yes install -y --allow-unauthenticated alsa-utils pulseaudio -y
 #RUN install -d -m755 -o pulse -g pulse /run/pulse
-RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/ 
-RUN apt-get update && apt-get install curl libgdbm3 software-properties-common python-gobject cga-hga sudo -y && rm *.deb -f && apt-get clean -y
+RUN mkdir /var/run/dbus 
+RUN apt-get update && apt-get install python-gobject cga-hga -y && rm *.deb -f && apt-get clean -y
 
 COPY ejabberdctl /usr/sbin/
 RUN chmod +x /usr/sbin/ejabberdctl
