@@ -27,21 +27,19 @@ RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && m
 && apt-get -o Acquire::AllowInsecureRepositories=yes update -y --allow-unauthenticated 
 
 
-RUN apt-get -o Acquire::AllowInsecureRepositories=yes install -y --allow-unauthenticated nano wget grep dbus dbus-x11 libnotify-bin screen psmisc python -y && apt-get clean 
+RUN apt-get -o Acquire::AllowInsecureRepositories=yes install -y --allow-unauthenticated sudo nano wget grep dbus dbus-x11 libnotify-bin screen psmisc python -y && apt-get clean 
 #RUN apt-get -o Acquire::AllowInsecureRepositories=yes install -y --allow-unauthenticated alsa-utils pulseaudio -y
 #RUN install -d -m755 -o pulse -g pulse /run/pulse
 RUN mkdir /var/run/dbus 
 RUN apt-get update && apt-get install python-gobject cga-hga -y && rm *.deb -f && apt-get clean -y
 
-COPY ejabberdctl /usr/sbin/
-RUN chmod +x /usr/sbin/ejabberdctl
+#COPY ejabberdctl /usr/sbin/
+#RUN chmod +x /usr/sbin/ejabberdctl
 COPY ejabberd /etc/init.d/
 RUN chmod +x /etc/init.d/ejabberd
 #COPY init.sh /
 #RUN chmod +x /init.sh
 #ENTRYPOINT /init.sh
-
-
 
 
 
