@@ -16,7 +16,7 @@ ENV QT_X11_NO_MITSHM=1
 
 RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p 
 
-RUN apt-get install nano wget -y 
+RUN apt-get update && apt-get install nano wget -y 
 
 # Instala repositorios guadalinex edu 2013
 
