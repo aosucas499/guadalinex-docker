@@ -37,7 +37,7 @@ COPY guadalinexedu-keyring_0.1-10_all.deb /
 
 RUN dpkg -i guadalinexedu-keyring_0.1-10_all.deb && rm *.deb
 
-RUN apt-get update && apt-get install libnotify-bin dbus dbus-x11 libusb-1.0 python -y && apt-get clean
+RUN apt-get update && apt-get install libnotify-bin dbus dbus-x11 libusb-1.0 python screen -y && apt-get clean
 
 RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/
 
