@@ -14,32 +14,40 @@ MAINTAINER Andrés Osuna <aosucas499gmail.com>
 ENV DEBIAN_FRONTEND=noninteractive
 ENV QT_X11_NO_MITSHM=1
 
-# Instala repositorios guadalinex edu next
+RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p 
+
+RUN apt-get update && apt-get install nano wget -y 
+
+# Instala repositorios guadalinex edu 2013
+
+RUN rm /etc/apt/sources.list 
+
 ARG REPO1=http://centros.edu.guadalinex.org/Edu/fenix/
 ARG REPO2=http://centros.edu.guadalinex.org/Edu/fenixsc/
 ARG REPO3=http://centros.edu.guadalinex.org/Edu/fenixscmd/
 ARG REPO4=http://centros.edu.guadalinex.org/Edu/fenixscpdi/
 
-#RUN dpkg --add-architecture i386 && apt-get update
-RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p \
-&& echo "APT { Get { AllowUnauthenticated "1"; }; };" > /etc/apt/apt.conf.d/99allow_unauth \
-&& echo deb $REPO1 guadalinexedu main > /etc/apt/sources.list && echo deb $REPO2 guadalinexedu main > /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO3 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO4 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex.list \
-&& apt-get -o Acquire::AllowInsecureRepositories=yes update -y --allow-unauthenticated 
+RUN echo deb $REPO1 guadalinexedu main > /etc/apt/sources.list && echo deb $REPO2 guadalinexedu main > /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO3 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO4 guadalinexedu main >> etc/apt/sources.list.d/guadalinex.list
 
+#wget http://centros.edu.guadalinex.org/Edu/fenix/pool/main/g/guadalinexedu-keyring/guadalinexedu-keyring_0.2-1_all.deb
+COPY guadalinexedu-keyring_0.2-1_all.deb /
 
-RUN apt-get -o Acquire::AllowInsecureRepositories=yes install -y --allow-unauthenticated sudo nano wget grep dbus dbus-x11 libnotify-bin screen psmisc python -y && apt-get clean 
-#RUN apt-get -o Acquire::AllowInsecureRepositories=yes install -y --allow-unauthenticated alsa-utils pulseaudio -y
-#RUN install -d -m755 -o pulse -g pulse /run/pulse
-RUN mkdir /var/run/dbus 
+RUN dpkg -i guadalinexedu-keyring_0.2-1_all.deb && rm *.deb
+
+RUN apt-get update && apt-get install libnotify-bin dbus dbus-x11 libusb-1.0 python screen sudo -y && apt-get clean
+
+#RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/
+
 RUN apt-get update && apt-get install python-gobject cga-hga -y && rm *.deb -f && apt-get clean -y
 
-#COPY ejabberdctl /usr/sbin/
-#RUN chmod +x /usr/sbin/ejabberdctl
+COPY ejabberdctl /usr/sbin/
+RUN chmod +x /usr/sbin/ejabberdctl
 COPY ejabberd /etc/init.d/
 RUN chmod +x /etc/init.d/ejabberd
 #COPY init.sh /
 #RUN chmod +x /init.sh
 #ENTRYPOINT /init.sh
+
 
 
 
