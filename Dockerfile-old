@@ -1,0 +1,35 @@
+#aosucas499/guadalinex:sigala
+
+# Comando para crear imagen docker, usar comando en la misma carpeta de este archivo
+# sudo docker build -t aosucas499/guadalinex:sigala .
+
+# Uso de la imagen y variables
+FROM i386/ubuntu:precise-20160108
+MAINTAINER Andrés Osuna <aosucas499gmail.com>
+ENV DEBIAN_FRONTEND=noninteractive
+ENV QT_X11_NO_MITSHM=1
+
+# Instala repositorios ubuntu
+ARG REPO1=http://centros.edu.guadalinex.org/Edu/catcorner
+ARG REPO2=http://centros.edu.guadalinex.org/Edu/catcornerdda
+ARG REPO3=http://centros.edu.guadalinex.org/Edu/catcornerdda2
+ARG REPO4=http://centros.edu.guadalinex.org/Edu/catcornersc
+ARG REPO5=http://centros.edu.guadalinex.org/Edu/precise
+ARG REPO6=http://centros.edu.guadalinex.org/Edu/precisedda
+ARG REPO7=http://centros.edu.guadalinex.org/Edu/precisedda2
+
+RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p && echo "APT { Get { AllowUnauthenticated "1"; }; };" > /etc/apt/apt.conf.d/99allow_unauth && apt-get update && apt-get install nano wget grep screen psmisc add-apt-key ca-certificates -y && echo deb $REPO1 guadalinexedu main > /etc/apt/sources.list && echo deb $REPO2 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex2.list && echo deb $REPO3 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex3.list && echo deb $REPO4 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex4.list &&  echo deb $REPO5 precise main > /etc/apt/sources.list && echo deb $REPO6 precise main >> /etc/apt/sources.list && echo deb $REPO7 precise main >> /etc/apt/sources.list && apt-get update
+#RUN wget http://centros.edu.guadalinex.org/Edu/precisedda/pool/main/p/python2.7/python2.7-minimal_2.7.3-0ubuntu3.8_i386.deb && dpkg -i python2.7-minimal_2.7.3-0ubuntu3.8_i386.deb
+#RUN wget https://launchpad.net/ubuntu/+source/perl/5.14.2-6ubuntu2/+build/3313125/+files/perl-base_5.14.2-6ubuntu2_i386.deb && dpkg -i perl-base_5.14.2-6ubuntu2_i386.deb
+RUN apt-get install sudo libicu48 guadalinexedu-artwork python-gobject cga-hga sudo -y && rm *.deb -f && apt-get clean -y
+
+#COPY ejabberdctl /usr/sbin/
+#RUN chmod +x /usr/sbin/ejabberdctl
+#COPY ejabberd /etc/init.d/
+#RUN chmod +x /etc/init.d/ejabberd
+#COPY init.sh /
+#RUN chmod +x /init.sh
+#ENTRYPOINT /init.sh
+
+
+

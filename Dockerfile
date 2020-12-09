@@ -4,19 +4,14 @@
 # sudo docker build -t aosucas499/guadalinex:sigala .
 
 # Uso de la imagen y variables
-FROM aosucas499/guadalinex:edu
+FROM aosucas499/guadalinex:precise
 MAINTAINER Andrés Osuna <aosucas499gmail.com>
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 ENV QT_X11_NO_MITSHM=1
 
-# Instala repositorios ubuntu
-#ARG REPO5=http://centros.edu.guadalinex.org/Edu/precise
-#ARG REPO6=http://centros.edu.guadalinex.org/Edu/precisedda
-#ARG REPO7=http://centros.edu.guadalinex.org/Edu/precisedda2
-#RUN echo deb $REPO5 precise main > /etc/apt/sources.list && echo deb $REPO6 precise main >> /etc/apt/sources.list && echo deb $REPO7 precise main >> /etc/apt/sources.list && apt-get update
-#RUN wget http://centros.edu.guadalinex.org/Edu/precisedda/pool/main/p/python2.7/python2.7-minimal_2.7.3-0ubuntu3.8_i386.deb && dpkg -i python2.7-minimal_2.7.3-0ubuntu3.8_i386.deb
-#RUN wget https://launchpad.net/ubuntu/+source/perl/5.14.2-6ubuntu2/+build/3313125/+files/perl-base_5.14.2-6ubuntu2_i386.deb && dpkg -i perl-base_5.14.2-6ubuntu2_i386.deb
-RUN apt-get install libicu48 python-gobject cga-hga sudo -y && rm *.deb -f && apt-get clean -y
+RUN wget --no-check-certificate https://launchpad.net/ubuntu/+source/glib2.0/2.32.3-0ubuntu1/+build/3553154/+files/libglib2.0-0_2.32.3-0ubuntu1_i386.deb && dpkg -i libglib2.0-0_2.32.3-0ubuntu1_i386.deb
+
+RUN apt-get install sudo libicu48 libglib2.0-bin guadalinexedu-artwork python-gobject cga-hga sudo -y && rm *.deb -f && apt-get clean -y
 
 #COPY ejabberdctl /usr/sbin/
 #RUN chmod +x /usr/sbin/ejabberdctl
