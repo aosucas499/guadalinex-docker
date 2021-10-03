@@ -61,9 +61,9 @@ COPY ejabberdctl /usr/sbin/
 RUN chmod +x /usr/sbin/ejabberdctl
 COPY ejabberd /etc/init.d/
 RUN chmod +x /etc/init.d/ejabberd
-COPY init.sh /
-RUN chmod +x /init.sh
-ENTRYPOINT /init.sh
+#COPY init.sh /
+#RUN chmod +x /init.sh
+#ENTRYPOINT /init.sh
 
 
 
