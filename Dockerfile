@@ -4,7 +4,7 @@
  
 
 # Comando para crear imagen docker, usar comando en la misma carpeta de este archivo
-# sudo docker build -t aosucas499/guadalinex:hgr .
+# sudo docker build -t aosucas499/guadalinex:hga .
 
 # Uso de la imagen y variables
 
@@ -29,7 +29,7 @@ ARG REPO4=http://centros.edu.guadalinex.org/Edu/fenixscpdi/
 
 RUN echo deb $REPO1 guadalinexedu main > /etc/apt/sources.list && echo deb $REPO2 guadalinexedu main > /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO3 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO4 guadalinexedu main >> etc/apt/sources.list.d/guadalinex.list
 
-#wget http://centros.edu.guadalinex.org/Edu/fenix/pool/main/g/guadalinexedu-keyring/guadalinexedu-keyring_0.2-1_all.deb
+#RUN wget http://centros.edu.guadalinex.org/Edu/fenix/pool/main/g/guadalinexedu-keyring/guadalinexedu-keyring_0.2-1_all.deb
 COPY guadalinexedu-keyring_0.2-1_all.deb /
 
 RUN dpkg -i guadalinexedu-keyring_0.2-1_all.deb && rm *.deb
@@ -38,15 +38,32 @@ RUN apt-get update && apt-get install libnotify-bin dbus dbus-x11 libusb-1.0 pyt
 
 RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/
 
-RUN apt-get update && apt-get install guadalinexedu-artwork python-gobject cga-hga -y && rm *.deb -f && apt-get clean -y
+RUN apt-get update && apt-get install -y python-avahi python-qt4 python-qt4-dbus python-netifaces python-sleekxmpp python-webdav x11vnc xtightvncviewer xvnc4viewer vlc rlwrap avahi-daemon setcd python-dnspython curl patch
+
+RUN wget http://security.debian.org/debian-security/pool/updates/main/s/systemd/libnss-myhostname_232-25+deb9u13_i386.deb 
+
+RUN wget http://launchpadlibrarian.net/142588730/libc-ares2_1.10.0-2_i386.deb
+
+RUN dpkg -i *.deb
+
+RUN apt-get update && apt-get install guadalinexedu-artwork python-gobject python-sleekxmpp cga-hga -y && rm *.deb -f && apt-get clean -y
+
+COPY sigala-install.patch /
+
+RUN patch /usr/lib/python2.7/dist-packages/hga/controlcompartir/cliente/davclient.py sigala-install.patch && rm *.patch
+
+RUN touch zz-ejabberd-cgaconfig
+RUN echo "ALL     ALL=NOPASSWD:/usr/bin/cga-hgr-client" > zz-ejabberd-cgaconfig
+RUN echo "ALL     ALL=NOPASSWD:/usr/bin/cga-hgr-server" >> zz-ejabberd-cgaconfig
+RUN chown root:root zz-ejabberd-cgaconfig && chmod 0440 zz-ejabberd-cgaconfig && mv zz-ejabberd-cgaconfig /etc/sudoers.d/
 
 COPY ejabberdctl /usr/sbin/
 RUN chmod +x /usr/sbin/ejabberdctl
 COPY ejabberd /etc/init.d/
 RUN chmod +x /etc/init.d/ejabberd
-#COPY init.sh /
-#RUN chmod +x /init.sh
-#ENTRYPOINT /init.sh
+COPY init.sh /
+RUN chmod +x /init.sh
+ENTRYPOINT /init.sh
 
 
 
