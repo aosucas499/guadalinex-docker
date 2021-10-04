@@ -4,7 +4,7 @@
  
 
 # Comando para crear imagen docker, usar comando en la misma carpeta de este archivo
-# sudo docker build -t aosucas499/guadalinex:hga .
+# sudo docker build -t aosucas499/guadalinex:testing .
 
 # Uso de la imagen y variables
 
@@ -46,21 +46,25 @@ RUN wget http://launchpadlibrarian.net/142588730/libc-ares2_1.10.0-2_i386.deb
 
 RUN dpkg -i *.deb
 
-RUN apt-get update && apt-get install guadalinexedu-artwork python-gobject python-sleekxmpp cga-hga -y && rm *.deb -f && apt-get clean -y
+RUN apt-get update && apt-get install guadalinexedu-artwork python-gobject ejabberd python-sleekxmpp cga-hga -y && rm *.deb -f && apt-get clean -y
 
 COPY sigala-install.patch /
 
 RUN patch /usr/lib/python2.7/dist-packages/hga/controlcompartir/cliente/davclient.py sigala-install.patch && rm *.patch
 
-RUN touch zz-ejabberd-cgaconfig
-RUN echo "ALL     ALL=NOPASSWD:/usr/bin/cga-hgr-client" > zz-ejabberd-cgaconfig
-RUN echo "ALL     ALL=NOPASSWD:/usr/bin/cga-hgr-server" >> zz-ejabberd-cgaconfig
-RUN chown root:root zz-ejabberd-cgaconfig && chmod 0440 zz-ejabberd-cgaconfig && mv zz-ejabberd-cgaconfig /etc/sudoers.d/
+RUN echo "ALL     ALL=NOPASSWD:/usr/bin/cga-hgr-client" >> /etc/sudoers.d/ejabberd-cgaconfig
+RUN echo "ALL     ALL=NOPASSWD:/usr/bin/cga-hgr-server" >> /etc/sudoers.d/ejabberd-cgaconfig
 
-COPY ejabberdctl /usr/sbin/
-RUN chmod +x /usr/sbin/ejabberdctl
-COPY ejabberd /etc/init.d/
-RUN chmod +x /etc/init.d/ejabberd
+#COPY docker-entrypoint.sh /
+#RUN chmod +x docker-entrypoint.sh
+
+#ENTRYPOINT [ "/docker-entrypoint.sh" ]
+
+
+#COPY ejabberdctl /usr/sbin/
+#RUN chmod +x /usr/sbin/ejabberdctl
+#COPY ejabberd /etc/init.d/
+#RUN chmod +x /etc/init.d/ejabberd
 #COPY init.sh /
 #RUN chmod +x /init.sh
 #ENTRYPOINT /init.sh
