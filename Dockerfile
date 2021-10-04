@@ -4,7 +4,7 @@
  
 
 # Comando para crear imagen docker, usar comando en la misma carpeta de este archivo
-# sudo docker build -t aosucas499/guadalinex:testing .
+# sudo docker build -t aosucas499/guadalinex:hga .
 
 # Uso de la imagen y variables
 
