@@ -8,7 +8,7 @@
 # Uso de la imagen y variables
 
 
-FROM i386/ubuntu:trusty
+FROM lliurex/i386-ubuntu:14.04
 MAINTAINER Andrés Osuna <aosucas499gmail.com>
 ENV DEBIAN_FRONTEND=noninteractive
 ENV QT_X11_NO_MITSHM=1
@@ -33,17 +33,11 @@ COPY guadalinexedu-keyring_0.2-1_all.deb /
 
 RUN dpkg -i guadalinexedu-keyring_0.2-1_all.deb && rm *.deb
 
-RUN apt-get update && apt-get install libnotify-bin dbus dbus-x11 libusb-1.0 python screen sudo libglib2.0-bin x11-xserver-utils gsettings-desktop-schemas gsettings-ubuntu-schemas onboard gconf2 -y && apt-get clean
+RUN apt-get update && apt-get install libnotify-bin dbus dbus-x11 libusb-1.0 python screen sudo -y && apt-get clean
 
 RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/
 
 RUN apt-get update && apt-get install -y python-avahi python-qt4 python-qt4-dbus python-netifaces python-sleekxmpp python-webdav x11vnc xtightvncviewer xvnc4viewer vlc rlwrap avahi-daemon setcd python-dnspython curl patch
-
-RUN wget http://security.debian.org/debian-security/pool/updates/main/s/systemd/libnss-myhostname_232-25+deb9u13_i386.deb 
-
-RUN wget http://launchpadlibrarian.net/142588730/libc-ares2_1.10.0-2_i386.deb
-
-RUN dpkg -i *.deb
 
 RUN apt-get update && apt-get install guadalinexedu-artwork python-gobject ejabberd python-sleekxmpp cga-hga -y && rm *.deb -f && apt-get clean -y
 
