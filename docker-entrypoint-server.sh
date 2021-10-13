@@ -23,8 +23,8 @@ done
 addgroup --quiet --gid ${GID} ${GROUP} || true
 adduser  --quiet --home /home/${USER} --shell /bin/false --gecos "UserAccount" --uid ${UID} --ingroup ${GROUP} --disabled-password --disabled-login ${USER} || true
 
-if [ ! -L '/root/HGR-SERVER' ]; then
-    ln -s /home/${USER} /root/HGR-SERVER || true
+if [ ! -L '/root/HGR' ]; then
+    ln -s /home/${USER} /root/HGR || true
 fi
 
 export LANG=es_ES.UTF-8
