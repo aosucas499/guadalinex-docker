@@ -55,9 +55,9 @@ RUN echo "ALL     ALL=NOPASSWD:/usr/bin/cga-hgr-server" >> /etc/sudoers.d/ejabbe
 #COPY init.sh /
 #RUN chmod +x /init.sh
 #ENTRYPOINT /init.sh
-
-COPY docker-entrypoint.sh /
-RUN chmod +x docker-entrypoint.sh
+ 
+COPY docker-entrypoint*.sh /
+RUN chmod +x docker-entrypoint*
 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 

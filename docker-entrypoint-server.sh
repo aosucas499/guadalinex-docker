@@ -23,14 +23,14 @@ done
 addgroup --quiet --gid ${GID} ${GROUP} || true
 adduser  --quiet --home /home/${USER} --shell /bin/false --gecos "UserAccount" --uid ${UID} --ingroup ${GROUP} --disabled-password --disabled-login ${USER} || true
 
-if [ ! -L '/root/HGR' ]; then
-    ln -s /home/${USER} /root/HGR || true
+if [ ! -L '/root/HGR-SERVER' ]; then
+    ln -s /home/${USER} /root/HGR-SERVER || true
 fi
 
 export LANG=es_ES.UTF-8
 
 #screen -d -m
-/usr/bin/cga-hgr-client
+/usr/bin/cga-hgr-server
 chown -R $USER:$GROUP /home/${USER} || true
 
 
