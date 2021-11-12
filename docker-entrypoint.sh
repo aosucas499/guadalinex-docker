@@ -1,14 +1,4 @@
 #!/bin/bash
-set -e
-set -x
-if [ -z "$USER" -o -z "$UID" ]; then
-    echo "USER NOT DEFINED"
-    exit 1
-fi
-if [ -z "$GROUP" -o -z "$GID" ]; then
-    echo "GROUP NOT DEFINED"
-    exit 1
-fi
 
 SERVICES="/bin/dbus-uuidgen --ensure;/bin/dbus-daemon --system --fork"
 
@@ -25,7 +15,8 @@ export LANG=es_ES.UTF-8
 
 #screen -d -m
 /usr/bin/cga-hgr-client
-chown -R $USER:$GROUP /home/${USER} || true
+
+#chown -R $USER:$GROUP /home/${USER} || true
 
 
 
