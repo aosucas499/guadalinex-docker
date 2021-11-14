@@ -17,6 +17,3 @@ export LANG=es_ES.UTF-8
 /usr/bin/cga-hgr-server
 
 chown -R $USER:$GROUP /home/${USER} || true
-
-
-

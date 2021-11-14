@@ -16,7 +16,4 @@ export LANG=es_ES.UTF-8
 #screen -d -m
 /usr/bin/cga-hgr-client
 
-#chown -R $USER:$GROUP /home/${USER} || true
-
-
-
+chown -R $USER:$GROUP /home/${USER} || true

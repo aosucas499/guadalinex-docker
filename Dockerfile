@@ -48,10 +48,10 @@ RUN patch /usr/lib/python2.7/dist-packages/hga/controlcompartir/cliente/davclien
 RUN echo "ALL     ALL=NOPASSWD:/usr/bin/cga-hgr-client" >> /etc/sudoers.d/ejabberd-cgaconfig
 RUN echo "ALL     ALL=NOPASSWD:/usr/bin/cga-hgr-server" >> /etc/sudoers.d/ejabberd-cgaconfig
 
-#COPY ejabberdctl /usr/sbin/
-#RUN chmod +x /usr/sbin/ejabberdctl
-#COPY ejabberd /etc/init.d/
-#RUN chmod +x /etc/init.d/ejabberd
+COPY ejabberdctl /usr/sbin/
+RUN chmod +x /usr/sbin/ejabberdctl
+COPY ejabberd /etc/init.d/
+RUN chmod +x /etc/init.d/ejabberd
 #COPY init.sh /
 #RUN chmod +x /init.sh
 #ENTRYPOINT /init.sh
@@ -60,9 +60,3 @@ COPY docker-entrypoint*.sh /
 RUN chmod +x docker-entrypoint*
 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
-
-
-
-
-
-
