@@ -39,7 +39,7 @@ RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/
 
 RUN apt-get update && apt-get install -y python-avahi python-qt4 python-qt4-dbus python-netifaces python-sleekxmpp python-webdav x11vnc xtightvncviewer xvnc4viewer vlc rlwrap avahi-daemon setcd python-dnspython curl patch
 
-RUN apt-get update && apt-get install guadalinexedu-artwork python-gobject ejabberd python-sleekxmpp cga-hga -y && rm *.deb -f && apt-get clean -y
+RUN apt-get update && apt-get install guadalinexedu-artwork python-gobject python-gtk2 ejabberd python-sleekxmpp cga-hga -y && rm *.deb -f && apt-get clean -y
 
 COPY sigala-install.patch /
 
