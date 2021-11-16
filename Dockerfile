@@ -33,13 +33,13 @@ COPY guadalinexedu-keyring_0.2-1_all.deb /
 
 RUN dpkg -i guadalinexedu-keyring_0.2-1_all.deb && rm *.deb
 
-RUN apt-get update && apt-get install libnotify-bin dbus dbus-x11 libusb-1.0 python screen sudo -y && apt-get clean
+RUN apt-get update && apt-get install libnotify-bin dbus dbus-x11 libusb-1.0 python screen sudo --no-install-recommends -y && apt-get clean
 
 RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/
 
-RUN apt-get update && apt-get install -y python-avahi python-qt4 python-qt4-dbus python-netifaces python-sleekxmpp python-webdav x11vnc xtightvncviewer xvnc4viewer vlc rlwrap avahi-daemon setcd python-dnspython curl patch
+RUN apt-get update && apt-get install -y python-avahi python-qt4 python-qt4-dbus python-netifaces python-sleekxmpp python-webdav x11vnc xtightvncviewer xvnc4viewer vlc rlwrap avahi-daemon setcd python-dnspython curl patch --no-install-recommends
 
-RUN apt-get update && apt-get install guadalinexedu-artwork python-gobject python-gtk2 ejabberd python-sleekxmpp cga-hga -y && rm *.deb -f && apt-get clean -y
+RUN apt-get update && apt-get install guadalinexedu-artwork python-gobject python-gtk2 ejabberd python-sleekxmpp cga-hga -y --no-install-recommends && rm *.deb -f && apt-get clean -y
 
 COPY sigala-install.patch /
 
