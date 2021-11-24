@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install libnotify-bin dbus dbus-x11 libusb-1.0 pyt
 RUN mkdir /var/run/dbus && chown messagebus:messagebus /var/run/dbus/
 
 # Instala app HGR-SIGALA y sus dependencias
-RUN apt-get update && apt-get install -y python-avahi python-qt4 python-qt4-dbus python-netifaces python-sleekxmpp python-webdav x11vnc xtightvncviewer xvnc4viewer vlc rlwrap avahi-daemon setcd python-dnspython curl patch --no-install-recommends
+RUN apt-get update && apt-get install -y iptables python-avahi python-qt4 python-qt4-dbus python-netifaces python-sleekxmpp python-webdav x11vnc xtightvncviewer xvnc4viewer vlc rlwrap avahi-daemon setcd python-dnspython curl patch --no-install-recommends
 RUN apt-get update && apt-get install guadalinexedu-artwork python-gobject python-gtk2 ejabberd python-sleekxmpp cga-hga -y --no-install-recommends && rm *.deb -f && apt-get clean -y
 
 # Modificaciones del código de la app sigala
