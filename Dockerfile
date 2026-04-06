@@ -1,35 +1,31 @@
 #aosucas499/guadalinex:edu
-# basado en ubuntu 14 trusty
-# con repositorios de guadalinex edu 2013
+# basado en ubuntu 20.04 Focal
+# con repositorios de educaandos
  
-
 # Comando para crear imagen docker, usar comando en la misma carpeta de este archivo
-# sudo docker build -t aosucas499/guadalinex:edu .
+# sudo docker build -t aosucas499/guadalinex:eos .
 
 # Uso de la imagen y variables
-#FROM i386/ubuntu:precise
-#FROM daald/ubuntu32:precise
-FROM i386/ubuntu:trusty
-MAINTAINER Andrés Osuna <aosucas499gmail.com>
+#FROM ubuntu:focal
+FROM ubuntu:focal-20200606
+LABEL maintainer="Andrés Osuna <aosucas499gmail.com>"
 ENV DEBIAN_FRONTEND noninteractive
 ENV QT_X11_NO_MITSHM=1
 
-# Instala repositorios guadalinex edu 2013
-ARG REPO1=http://centros.edu.guadalinex.org/Edu/catcorner
-ARG REPO2=http://centros.edu.guadalinex.org/Edu/catcornerdda
-ARG REPO3=http://centros.edu.guadalinex.org/Edu/catcornerdda2
-ARG REPO4=http://centros.edu.guadalinex.org/Edu/catcornersc
-ARG REPO5=http://centros.edu.guadalinex.org/Edu/precise
-ARG REPO6=http://centros.edu.guadalinex.org/Edu/precisedda
-ARG REPO7=http://centros.edu.guadalinex.org/Edu/precisedda2
+RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p
 
-#RUN dpkg --add-architecture i386 && apt-get update
-RUN echo exit 0 > /usr/sbin/policy-rc.d && mkdir /usr/share/applications -p && mkdir /usr/share/desktop-directories -p && echo "APT { Get { AllowUnauthenticated "1"; }; };" > /etc/apt/apt.conf.d/99allow_unauth && apt-get update && apt-get install nano wget grep screen psmisc add-apt-key ca-certificates -y && echo deb $REPO1 guadalinexedu main > /etc/apt/sources.list && echo deb $REPO2 guadalinexedu main > /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO3 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO4 guadalinexedu main >> /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO5 precise main >> /etc/apt/sources.list && echo deb $REPO6 precise main >> /etc/apt/sources.list.d/guadalinex.list && echo deb $REPO7 precise main >> /etc/apt/sources.list.d/guadalinex.list && apt-get update && apt-get clean 
+# Instala repositorios educaandos
+ARG REPO1=http://centros.edu.guadalinex.org/Edu/focal
+ARG REPO2=http://centros.edu.guadalinex.org/Edu/focalsc
+ARG REPO3=http://centros.edu.guadalinex.org/Edu/focalscmd
+ARG REPO4=http://centros.edu.guadalinex.org/Edu/focalscpdi
 
+RUN echo deb [trusted=yes] $REPO1 educaandos main > /etc/apt/sources.list && echo deb [trusted=yes] $REPO2 educaandos main > /etc/apt/sources.list.d/guadalinex.list && echo deb [trusted=yes] $REPO3 educaandos main >> /etc/apt/sources.list.d/guadalinex.list && echo deb [trusted=yes] $REPO4 educaandos main >> /etc/apt/sources.list.d/guadalinex.list 
 
+COPY educaandos-keyring_0.3-4_amd64.deb / 
 
+RUN dpkg -i educaandos-keyring_0.3-4_amd64.deb && rm *.deb 
 
+RUN apt update && apt install nano wget grep screen psmisc ca-certificates libusb-1.0-0 dbus dbus-x11 -y && apt-get clean
 
-
-
-
+#RUN apt-get install libnotify-bin python -y && apt-get clean
