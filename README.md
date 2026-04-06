@@ -2,6 +2,7 @@
 
 Buildinfo for create image docker aosucas499/guadalinex
 
+tag eos: Educaandos (Ubuntu 20.04 Focal 64 bits)
 
 tag next: Guadalinex edu Next (Ubuntu 16 Xenial 32bits)
 
